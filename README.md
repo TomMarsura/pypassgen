@@ -1,5 +1,5 @@
 # Python Password Generator
-AlgoL2 files
+pypassgen files
 <h1 align="center">Hi 👋, I'm Tom Marsura</h1>
 <h3 align="center">French student in Le Mans University</h3>
 
