@@ -55,7 +55,7 @@ RESTORE_PRINT = """###############################################
 
 """
 
-# / ---------------- VARIABLES ORIGINALES ---------------- \
+# / ---------------- ORIGINAL VARIABLES ---------------- \
     
 or_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 or_numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -71,21 +71,25 @@ passw = []
 
 majuscules = 1
 
-# / ---------------- LISTES CHOIX ---------------- \
+# / ---------------- CHOICES LIST ---------------- \
     
 symbols_1 = ['!', '#', '$', '%', '&', '*', '+', '-', '.', '/', ':', ';', '=', '?', '@', '^', '_', '`', '~']
 symbols_2 = ['"', '(', ')', ',', '<', '>', '[', '\\', ']', '{', '|', '}']
 symbols_3 = ['%', '(', ')', '*', '+', ',', '-', '/', ':', ';', '<', '=', '>', '_', '{', '}']
 symbols_4 = ['!', '#', '$', '*', '-', '/', ';', '?', '@', '^', '_', '`', '~']
 
-# / ---------------- FONCTIONS ---------------- \
+# / ---------------- FUNCTIONS ---------------- \
 
 def genPassword1(nb_chars):
     
-    
+    """ Function that generates a password from a number of characters from the parameter """
+
+    """ Randomize the number of symbols, numbers and letters for the password """
     nb_nums = random.randint(0, int(nb_chars / 4))
     nb_symb = random.randint(0, int(nb_chars / 4))
     nb_letters = nb_chars - (nb_symb + nb_nums)
+
+    """ Generating the password """
     while(nb_chars > 0):
         check = 1
         rand = random.randint(0, 2)
@@ -112,7 +116,11 @@ def genPassword1(nb_chars):
             nb_chars -= 1
 
 def genPassword2(nb_letters, nb_nums, nb_symb):
+    """ Function that generates a password from a given number of letters, symbols and numbers """
+
     nbChar = nb_letters + nb_nums + nb_symb
+
+    """ Generating the password """
     while(nbChar > 0):
         check = 1
         rand = random.randint(0, 2)
@@ -139,9 +147,13 @@ def genPassword2(nb_letters, nb_nums, nb_symb):
             nbChar -= 1
 
 def genPassword3(nb_chars, symb):
+    
+    """ Function that generates a password from a given number of chars and a list of symbols alredy defined """
     nb_nums = random.randint(0, int(nb_chars / 3))
     nb_symb = random.randint(0, int(nb_chars / 3))
     nb_letters = nb_chars - (nb_symb + nb_nums)
+
+    """ Generating the password """
     while(nb_chars > 0):
         check = 1
         rand = random.randint(0, 2)
@@ -175,6 +187,11 @@ def genPassword3(nb_chars, symb):
             nb_chars -= 1
 
 def delChar(charType, char):
+
+    """ Function which ables the user to delete characters from the list given by the app to generate a password """
+
+
+    """ Treating the exceptions from the given parameters """
     if charType == 0 and len(letters) > 0:
         if char.lower() in letters:
             letters.remove(char.lower())
@@ -203,11 +220,15 @@ def delChar(charType, char):
         print("Erreur : la liste des symboles est vide")
 
 def addChar(charType, char): 
-    # charType : 0 = lettre, 1 = nombre, 2 = symbole
-    #Si toutes les lettres sont déjà présentes, on ne peut pas ajouter de lettre
-    #Si tous les nombres sont déjà présents, on ne peut pas ajouter de nombre
-    #Si tous les symboles sont déjà présents, on ne peut pas ajouter de symbole
-    #Listes originales dans la partie 'VARIABLES ORIGINALES'
+    """ 
+        charType : 0 = letter, 1 = number, 2 = symbol
+        If all the letters are already enabled, the user can't add another letter
+        If all the numbers are already enabled, the user can't add another number
+        If all the symbols are already enabled, the user can't add another symbol
+        Original list in the part 'ORIGINAL VARIABLES'
+    """
+
+    """ Treating exceptions from the give parameters """
     
     if charType == 0:
         if len(letters) == len(or_letters):
@@ -238,6 +259,9 @@ def addChar(charType, char):
             symbols.append(char)
 
 def displayChar(charType):
+
+    """ Function that displays the characters used to generate the password. The charType represents the type of character to be displayed """
+
     if charType == 0:
         for i in range(len(letters)):
             print(f"{letters[i].upper()}|", end="")
@@ -257,9 +281,11 @@ def displayChar(charType):
         print("\n")
 
 if __name__ == '__main__':
+    """ Main function which makes the generator displayed on the screen """
+    #VARIABLE USED TO QUIT THE APP WHEN THE VALUE IS 0
     keepgen = 1
     
-    #VARIABLES ORIGINALES
+    #ORIGINAL VARIABLES
     nb_letters = -1
     nb_nums = -1
     nb_symb = -1
@@ -267,22 +293,30 @@ if __name__ == '__main__':
     user_choice = 0
     user_choice2 = -1
 
+    """ Loop which makes the generator displayed on the sceen """
     while(keepgen == 1):
         nb_letters = -1
         nb_nums = -1
         nb_symb = -1
         
+        """ Displaying the main menu """
         os.system('cls')
         print(WELCOME_PRINT)    
         user_choice = int(input("| 1. Saisir le nombre de caractères\n| 2. Saisir le nombre de chaque caractères\n| 3. Choix complet\n| 4. Options de génération\n| 5. Quitter\n\n| Choix : "))
         
+        """ Treating the choice of the user """
+
         if user_choice == 1:
+
+            """ Choice 1 : Generates a password with a number of characters given """
+
             nb_letters = 0
             while(nb_letters < 4 or nb_letters > 40):
                 nb_letters = int(input("Saisir le nombre de caractères (Entre 4 et 40) : "))
                 if nb_letters < 4 or nb_letters > 40 :
                     print("Saisie invalide")
             
+            """ Variable which enables the user to restart the generation while the password is not good enough for him """
             restart = 1
             while(restart == 1):
                 genPassword1(nb_letters)
@@ -310,12 +344,17 @@ if __name__ == '__main__':
                         print("Mot de passe copié dans le presse-papiers")
         
         elif user_choice == 2:
+
+            """ Choice 2 : Generates a password with a number of each characters given """
+
             while nb_letters < 0:
                 nb_letters = int(input("Saisir le nombre de lettres : "))
             while nb_nums < 0:
                 nb_nums = int(input("Saisir le nombre de numéros : "))
             while nb_symb < 0:
                 nb_symb = int(input("Saisir le nombre de symboles : "))
+            
+            """ Variable which enables the user to restart the generation while the password is not good enough for him """
             
             restart = 1
             while(restart == 1):
@@ -342,8 +381,11 @@ if __name__ == '__main__':
                         
                         copy(copyPass)
                         print("Mot de passe copié dans le presse-papiers")
-       
+
         elif user_choice == 3:
+            
+            """ Choice 3 : Generates a password with a preset of symbols and a number of characters given  """
+
             os.system('cls')
             print(" 1. ", end='')
             for i in range(len(symbols_1)):
@@ -369,7 +411,9 @@ if __name__ == '__main__':
                     print("Choix incorrect !")
                     
             nb_letters = int(input("Saisir le nombre de caractères à utiliser : "))
-            
+
+            """ Variable which enables the user to restart the generation while the password is not good enough for him """
+
             restart = 1
             while(restart == 1):
                 genPassword3(nb_letters, user_choice2)
@@ -397,6 +441,9 @@ if __name__ == '__main__':
                         print("Mot de passe copié dans le presse-papiers")
                     
         elif user_choice == 4:
+
+            """ CHOICE 4 : Change the parameters of the generator """
+
             user_choice2 = 0
             while user_choice2 != 9:
                 user_choice2 = 0
@@ -521,6 +568,9 @@ if __name__ == '__main__':
                 pass
          
         elif user_choice == 5:
+
+            """ Choice 5 : Leave the generator """
+
             keepgen = 0
             os.system('cls')
             print("\n\n Merci d'avoir utilisé ce générateur de mot de passe ! A bientôt !\n\n")
